@@ -1,0 +1,44 @@
+name: Terraform Validate and Plan
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+  
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+
+      - name: Setup secrets
+        run: |-
+          cat <<'eof' > kubernetes-admin.conf
+          ${{ secrets.KUBERNETES_ADMIN_CONF }}
+          eof
+ 
+      - name: Run Terraform Init
+        run: terraform init
+        
+      - name: Run Terraform Format
+        run: terraform fmt -check
+        
+      - name: Run Terraform Validate
+        run: terraform validate -no-color
+
+      - name: Run Terraform Plan
+        run: terraform plan -no-color
