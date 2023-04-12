@@ -24,13 +24,13 @@ provider "kubernetes" {
 }
 
 module "cert_manager" {
-  source               = "git@github.com:tenzin-io/terraform-homelab-cert-manager.git?ref=main"
+  source               = "git::https://github.com/tenzin-io/terraform-tenzin-cert-manager.git?ref=v0.0.1"
   cloudflare_api_email = "tenzin@tenzin.io"
   cloudflare_api_token = data.aws_ssm_parameter.cloudflare_api_token.value
 }
 
 module "github_actions_runner" {
-  source                     = "git@github.com:tenzin-io/terraform-homelab-github-actions-runner-controller.git?ref=main"
+  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-github-actions-runner-controller.git?ref=v0.0.1"
   github_org_name            = "tenzin-io"
   github_app_id              = data.aws_ssm_parameter.github_app_id.value
   github_app_installation_id = data.aws_ssm_parameter.github_app_installation_id.value
