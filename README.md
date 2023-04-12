@@ -14,8 +14,8 @@ A Terraform configuration repository to manage my home lab Kubernetes cluster
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cert_manager"></a> [cert\_manager](#module\_cert\_manager) | git@github.com:tenzin-io/terraform-homelab-cert-manager.git | main |
-| <a name="module_github_actions_runner"></a> [github\_actions\_runner](#module\_github\_actions\_runner) | git@github.com:tenzin-io/terraform-homelab-github-actions-runner-controller.git | main |
+| <a name="module_cert_manager"></a> [cert\_manager](#module\_cert\_manager) | git::https://github.com/tenzin-io/terraform-tenzin-cert-manager.git | v0.0.1 |
+| <a name="module_github_actions_runner"></a> [github\_actions\_runner](#module\_github\_actions\_runner) | git::https://github.com/tenzin-io/terraform-tenzin-github-actions-runner-controller.git | v0.0.1 |
 
 ## Resources
 
