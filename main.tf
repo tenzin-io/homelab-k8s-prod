@@ -13,13 +13,13 @@ provider "aws" {
 
 provider "helm" {
   kubernetes {
-    config_path    = "kubernetes_admin.conf"
+    config_path    = "kubernetes-admin.conf"
     config_context = "kubernetes-admin@kubernetes"
   }
 }
 
 provider "kubernetes" {
-  config_path    = "kubernetes_admin.conf"
+  config_path    = "kubernetes-admin.conf"
   config_context = "kubernetes-admin@kubernetes"
 }
 
