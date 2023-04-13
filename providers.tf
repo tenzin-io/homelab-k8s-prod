@@ -4,10 +4,10 @@ provider "aws" {
 
 provider "helm" {
   kubernetes {
-    config_path    = "kubernetes-admin.conf"
+    config_path = "kubernetes-admin.conf"
   }
 }
 
 provider "kubernetes" {
-  config_path    = "kubernetes-admin.conf"
+  config_path = "kubernetes-admin.conf"
 }

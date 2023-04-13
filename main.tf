@@ -8,9 +8,9 @@ terraform {
 }
 
 module "cert_manager" {
-  source               = "git::https://github.com/tenzin-io/terraform-tenzin-cert-manager.git?ref=v0.0.2"
+  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-cert-manager.git?ref=v0.0.2"
   cert_registration_email = "tenzin@tenzin.io"
-  cloudflare_api_token = chomp(data.aws_ssm_parameter.cloudflare_api_token.value)
+  cloudflare_api_token    = chomp(data.aws_ssm_parameter.cloudflare_api_token.value)
 }
 
 module "github_actions" {
