@@ -20,3 +20,27 @@ module "github_actions" {
   github_app_installation_id = chomp(data.aws_ssm_parameter.github_app_installation_id.value)
   github_app_private_key     = data.aws_ssm_parameter.github_app_private_key.value
 }
+
+module "metallb" {
+  source        = "git::https://github.com/tenzin-io/terraform-tenzin-metallb.git?ref=v0.0.1"
+  ip_pool_range = "192.168.200.70/32"
+}
+
+module "nginx_ingress" {
+  source     = "git::https://github.com/tenzin-io/terraform-tenzin-nginx-ingress-controller.git?ref=v0.0.1"
+  depends_on = [module.metallb]
+}
+
+
+module "homelab_services" {
+  source = "git::https://github.com/tenzin-io/terraform-tenzin-nginx-ingress-external.git?ref=v0.0.1"
+  external_services = {
+    "homelab-vsphere" = {
+      virtual_host = "vs.tenzin.io"
+      address      = "192.168.200.223"
+      protocol     = "HTTPS"
+      port         = "443"
+    }
+  }
+  depends_on = [module.nginx_ingress, module.cert_manager]
+}
