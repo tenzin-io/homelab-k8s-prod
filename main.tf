@@ -14,12 +14,13 @@ module "cert_manager" {
 }
 
 module "github_actions" {
-  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-github-actions-runner-controller.git?ref=v0.0.2"
+  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-github-actions-runner-controller.git?ref=main"
   github_org_name            = "tenzin-io"
   github_app_id              = chomp(data.aws_ssm_parameter.github_app_id.value)
   github_app_installation_id = chomp(data.aws_ssm_parameter.github_app_installation_id.value)
   github_app_private_key     = data.aws_ssm_parameter.github_app_private_key.value
-  github_runner_labels       = "homelab"
+  github_runner_labels       = "homelab,v1"
+  github_runner_image        = "containers.tenzin.io/docker/tenzin-io/actions-runner:latest"
 }
 
 module "metallb" {
