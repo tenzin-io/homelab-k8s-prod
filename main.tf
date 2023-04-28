@@ -34,15 +34,21 @@ module "nginx_ingress" {
   depends_on              = [module.metallb]
 }
 
-
 module "homelab_services" {
-  source = "git::https://github.com/tenzin-io/terraform-tenzin-nginx-ingress-external.git?ref=v0.0.1"
+  source = "git::https://github.com/tenzin-io/terraform-tenzin-nginx-ingress-external.git?ref=main"
   external_services = {
     "homelab-vsphere" = {
       virtual_host = "vs.tenzin.io"
       address      = "192.168.200.223"
       protocol     = "HTTPS"
       port         = "443"
+    }
+    "homelab-artifactory" = {
+      virtual_host      = "containers.tenzin.io"
+      address           = "192.168.200.226"
+      protocol          = "HTTP"
+      port              = "8082"
+      request_body_size = "2g"
     }
   }
   depends_on = [module.nginx_ingress, module.cert_manager]
