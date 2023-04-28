@@ -51,7 +51,7 @@ module "homelab_services" {
       address           = "192.168.200.226"
       protocol          = "HTTP"
       port              = "8082"
-      request_body_size = "2g"
+      request_body_size = "24g"
     }
   }
   depends_on = [module.nginx_ingress, module.cert_manager]
