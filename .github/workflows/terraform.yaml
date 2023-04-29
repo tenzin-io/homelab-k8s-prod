@@ -47,7 +47,8 @@ jobs:
         run: terraform plan -no-color
 
   apply:
-    runs-on: [ self-hosted, homelab]
+    needs: [validate-and-plan]
+    runs-on: [self-hosted, homelab]
 
     steps:
       - uses: actions/checkout@v3
