@@ -20,8 +20,7 @@ module "github_actions" {
   github_app_installation_id = chomp(data.aws_ssm_parameter.github_app_installation_id.value)
   github_app_private_key     = data.aws_ssm_parameter.github_app_private_key.value
   github_runner_labels       = ["homelab", "v1"]
-  github_runner_image        = "ghcr.io/actions/actions-runner-controller/actions-runner-dind:ubuntu-22.04"
-
+  github_runner_image        = "containers.tenzin.io/docker/tenzin-io/ubuntu-actions-runner-image:latest"
 }
 
 module "metallb" {
