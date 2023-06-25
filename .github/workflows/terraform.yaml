@@ -28,10 +28,20 @@ jobs:
           role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1
 
-      - name: Setup secrets
+      - uses: hashicorp/vault-action@v2
+        id: vault_secrets
+        with:
+          url: https://vault.tenzin.io
+          role: ${{ vars.VAULT_ROLE_TO_ASSUME }}
+          method: jwt
+          exportToken: true
+          secrets: |
+            github/data/homelab-k8s-v1 kubernetes_admin_conf | KUBERNETES_ADMIN_CONF ;
+
+      - name: Setup kubernetes-admin.conf
         run: |-
           cat <<'eof' > kubernetes-admin.conf
-          ${{ secrets.KUBERNETES_ADMIN_CONF }}
+          ${{ steps.vault_secrets.outputs.KUBERNETES_ADMIN_CONF }}
           eof
  
       - name: Run Terraform Init
@@ -63,10 +73,20 @@ jobs:
           role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1
 
-      - name: Setup secrets
+      - uses: hashicorp/vault-action@v2
+        id: vault_secrets
+        with:
+          url: https://vault.tenzin.io
+          role: ${{ vars.VAULT_ROLE_TO_ASSUME }}
+          method: jwt
+          exportToken: true
+          secrets: |
+            github/data/homelab-k8s-v1 kubernetes_admin_conf | KUBERNETES_ADMIN_CONF ;
+
+      - name: Setup kubernetes-admin.conf
         run: |-
           cat <<'eof' > kubernetes-admin.conf
-          ${{ secrets.KUBERNETES_ADMIN_CONF }}
+          ${{ steps.vault_secrets.outputs.KUBERNETES_ADMIN_CONF }}
           eof
 
       - name: Run Terraform Init

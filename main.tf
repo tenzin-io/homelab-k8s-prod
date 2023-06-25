@@ -10,17 +10,17 @@ terraform {
 module "cert_manager" {
   source                  = "git::https://github.com/tenzin-io/terraform-tenzin-cert-manager.git?ref=v0.0.2"
   cert_registration_email = "tenzin@tenzin.io"
-  cloudflare_api_token    = chomp(data.aws_ssm_parameter.cloudflare_api_token.value)
+  cloudflare_api_token    = data.vault_generic_secret.cloudflare.data.api_token
 }
 
 module "github_actions" {
   source                     = "git::https://github.com/tenzin-io/terraform-tenzin-github-actions-runner-controller.git?ref=v0.1.0"
   github_org_name            = "tenzin-io"
-  github_app_id              = chomp(data.aws_ssm_parameter.github_app_id.value)
-  github_app_installation_id = chomp(data.aws_ssm_parameter.github_app_installation_id.value)
-  github_app_private_key     = data.aws_ssm_parameter.github_app_private_key.value
+  github_app_id              = data.vault_generic_secret.github_app.data.app_id
+  github_app_installation_id = data.vault_generic_secret.github_app.data.installation_id
+  github_app_private_key     = data.vault_generic_secret.github_app.data.private_key
   github_runner_labels       = ["homelab", "v1"]
-  github_runner_image        = "containers.tenzin.io/docker/tenzin-io/ubuntu-actions-runner-image:latest"
+  github_runner_image        = "containers.tenzin.io/docker/tenzin-io/actions-runner-images/ubuntu-latest:main"
 }
 
 module "metallb" {
@@ -31,7 +31,7 @@ module "metallb" {
 module "nginx_ingress" {
   source                  = "git::https://github.com/tenzin-io/terraform-tenzin-nginx-ingress-controller.git?ref=v0.0.2"
   enable_tailscale_tunnel = true
-  tailscale_auth_key      = chomp(data.aws_ssm_parameter.tailscale_auth_key.value)
+  tailscale_auth_key      = data.vault_generic_secret.tailscale.data.auth_key
   depends_on              = [module.metallb]
 }
 
