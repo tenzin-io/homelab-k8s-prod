@@ -4,12 +4,6 @@ A Terraform configuration repository to manage my home lab Kubernetes cluster
 <!-- BEGIN_TF_DOCS -->
 
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_vault"></a> [vault](#provider\_vault) | 3.17.0 |
-
 ## Modules
 
 | Name | Source | Version |
