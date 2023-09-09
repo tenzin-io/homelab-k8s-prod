@@ -20,7 +20,7 @@ module "github_actions" {
   github_app_installation_id = data.vault_generic_secret.github_app.data.installation_id
   github_app_private_key     = data.vault_generic_secret.github_app.data.private_key
   github_runner_labels       = ["homelab", "v1"]
-  github_runner_image        = "containers.tenzin.io/docker/tenzin-io/actions-runner-images/ubuntu-latest:v0.0.7"
+  github_runner_image        = "containers.tenzin.io/docker/tenzin-io/actions-runner-images/ubuntu-latest:v0.0.8"
 }
 
 module "metallb" {
