@@ -36,7 +36,7 @@ jobs:
           method: jwt
           exportToken: true
           secrets: |
-            secrets/data/kubeconfig/homelab-k8s-v1 kubernetes_admin_conf | KUBERNETES_ADMIN_CONF ;
+            secrets/data/kubeconfig/homelab-k8s-prod kubernetes_admin_conf | KUBERNETES_ADMIN_CONF ;
 
       - name: Setup kubernetes-admin.conf
         run: |-
@@ -81,7 +81,7 @@ jobs:
           method: jwt
           exportToken: true
           secrets: |
-            secrets/data/kubeconfig/homelab-k8s-v1 kubernetes_admin_conf | KUBERNETES_ADMIN_CONF ;
+            secrets/data/kubeconfig/homelab-k8s-prod kubernetes_admin_conf | KUBERNETES_ADMIN_CONF ;
 
       - name: Setup kubernetes-admin.conf
         run: |-
