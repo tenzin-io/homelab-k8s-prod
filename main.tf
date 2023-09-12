@@ -75,8 +75,11 @@ module "grafana" {
   github_org_name            = "tenzin-io"
   github_oauth_client_id     = data.vault_generic_secret.grafana.data.github_oauth_client_id
   github_oauth_client_secret = data.vault_generic_secret.grafana.data.github_oauth_client_secret
-  thanos_store_endpoints     = ["homelab-k8s-prod-thanos.tenzin.io:443"]
-  depends_on                 = [module.nginx_ingress, module.cert_manager, module.prometheus, module.nfs_subdir]
+  thanos_store_endpoints = [
+    "homelab-k8s-prod-thanos.tenzin.io:443",
+    "homelab-k8s-dev-thanos.tenzin.io:443",
+  ]
+  depends_on = [module.nginx_ingress, module.cert_manager, module.prometheus, module.nfs_subdir]
 }
 
 module "artifactory" {
